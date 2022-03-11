@@ -1,0 +1,39 @@
+.title{
+    display: flex;
+    justify-content: center;
+    
+}
+.headerIcon{
+    display: flex;
+    justify-content: end;
+}
+.icon{
+   display: inline-block;
+}
+.btn{
+    background: transparent;
+    cursor: pointer;
+    padding: 10px 20px 10px 10px;
+    border: none;
+}
+.content{
+    display: none;
+    position: absolute;
+    min-width: 100px;
+    background-color: #f9f9f9;
+}
+.content a{
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+    text-align: center;
+}
+.icon:hover .content{
+    display: block;
+}
+.content a:hover{
+    background-color: lightblue;
+    color: black;
+}
+
