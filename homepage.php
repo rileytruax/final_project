@@ -8,9 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300&display=swap" rel="stylesheet">
     <title>Home</title>
     <style>
-        
+        h1{
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+        }
+        .title{
+            text-align: center;
+        }
     </style>
 </head>
 <!-- img is 434 x 640 -->
@@ -27,7 +34,7 @@
             </div>
         </div>
         <div class="title">
-            
+            <h1>Home</h1>
         </div>
     </header>
     <main>
