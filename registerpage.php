@@ -60,7 +60,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="contatiner">
         <header>
             <nav>
                 <a href="homepage.php">Homepage</a>
@@ -77,16 +77,23 @@
                 <p>Thank you and have a great day!!</p>
             </div>
             <div class="form">
-                <form action="scripts/loginscript.php" method="POST">
-                    <input class="form-control" type="username" name="username" placeholder="Username" required>
+                <form action="scripts/registerscript.php" method="POST">
+
+                    <input class="form-control" type="text" name="name" placeholder="Name">
                     <div style="padding-top: 3%;">
-                        <input class="form-control" type="password" name="pwd" placeholder="Password" required>
+                        <input class="form-control" type="text" name="username" placeholder="Username">
                     </div>
-                    <button class="loginButton" type="submit" name="login">LOGIN</button>
+                    <div style="padding-top: 3%;">
+                        <input class="form-control" type="password" name="pwd" placeholder="Password">
+                    </div>
+                    <div style="padding-top: 3%;">
+                        <input class="form-control" type="password" name="retypepwd" placeholder="Retype password">
+                    </div>
+                    <button class="loginButton" type="submit" name="login">REGISTER</button>
                 </form>
             </div>
             <div class="register">
-                <button onclick="location.href='registerpage.php';" class="registerButton" type="submit" name="register">REGISTER</button>
+                <button onclick="location.href='loginpage.php';" class="registerButton" type="submit" name="register">Back To Login</button>
             </div>
         </main>
         <footer>
