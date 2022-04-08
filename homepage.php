@@ -18,6 +18,14 @@
         .title{
             text-align: center;
         }
+        .column{
+            width: auto;
+            height: 200px;
+        }
+        .column-container{
+            display: flex;
+            justify-content: space-around;
+        }
     </style>
 </head>
 <!-- img is 434 x 640 -->
@@ -37,8 +45,17 @@
             <h1>Home</h1>
         </div>
     </header>
-    <main>
-        
+    <br/>
+    <br/>
+    <main class="container">
+        <div class=column-container>
+            <div>Content 1</div>
+            <div>Content 2</div>
+            <div>Content 3</div>
+        </div>
     </main>
+    <footer>
+        
+    </footer>
 </body>
 </html>
