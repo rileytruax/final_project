@@ -24,7 +24,7 @@
             justify-content: center;
             margin-top: 20px;
         }
-        .child {
+        .text {
             text-align: center;
         }
         .form {
@@ -72,7 +72,7 @@
         </header>
         <br>
         <main>
-            <div class="child">
+            <div class="text">
                 <p>Thank you for visiting our site. We are currently working on the content for this page, so please check back another time.</p>
                 <p>Thank you and have a great day!!</p>
             </div>

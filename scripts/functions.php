@@ -2,63 +2,73 @@
 
 function emptyInput($name, $username, $password, $retypepassword)
 {
-    $result = false;
+    $answer = false;
     if(empty($name) || empty($username) || empty($password) || empty($retypepassword))
     {
-        $result = true;
+        $answer = true;
     }
     else
     {
-        $result = false;
+        $answer = false;
     }
     
-    return $result;
+    return $answer;
 }
 
 function invalidName($name)
 {
-    $result = false;
+    $answer = false;
     if(!preg_match("/^[a-zA-Z' ]*$/",$name))
     {
         echo "Only letters and white space allowed.";
-        $result = true;
+        $answer = true;
     }
 
-    return $result;
+    return $answer;
 }
 
 function invalidUsername($username)
 {
-    $result = false;
+    $answer = false;
     if(!preg_match("/^[a-zA-Z0-9]*$/",$username))
     {
         echo "Only letters and numbers allowed.";
-        $result = true;
+        $answer = true;
     }
 
-    return $result;
+    return $answer;
 }
 
 function invalidPassword($password)
 {
-    $result = false;
+    $answer = false;
     if($password < 8)
     {
         echo "Password must be at least 8 characters long.";
-        $result = true;
+        $answer = true;
     }
 
-    return $result;
+    return $answer;
 }
 
 function pwdMatch($password, $retypepassword)
 {
-    $result = false;
+    $answer = false;
     if($retypepassword !== $password)
     {
         echo "Passwords do not match!";
-        $result = true;
+        $answer = true;
     }
 
-    return $result;
+    return $answer;
 }
+
+/*
+function registerUser($conn, $name, $username, $password)
+{
+    $sql = "INSERT INTO users (userId, userName, userUsername, userPassword) VALUES ();";
+    $stmt = mysqli_stmt_init($conn);
+
+    
+}
+*/
