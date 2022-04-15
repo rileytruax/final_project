@@ -19,12 +19,23 @@
             text-align: center;
         }
         .column{
-            width: auto;
-            height: 200px;
+            height: 300px;
+            width: 32%;
+            border-style: solid;
+            background-color: lightcoral;
         }
-        .column-container{
+        .flex-container{
             display: flex;
-            justify-content: space-around;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        h5{
+            text-align: center;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: bold;
+        }
+        p{
+            
         }
     </style>
 </head>
@@ -48,10 +59,16 @@
     <br/>
     <br/>
     <main class="container">
-        <div class=column-container>
-            <div>Content 1</div>
-            <div>Content 2</div>
-            <div>Content 3</div>
+        <div class=flex-container>
+            <div class="column">
+                <h5>Content 1</h5>
+            </div>
+            <div class="column">
+                <h5>Content 2</h5>
+            </div>
+            <div class="column">
+                <h5>Content 3</h5>
+            </div>
         </div>
     </main>
     <footer>

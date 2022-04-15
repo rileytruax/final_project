@@ -54,7 +54,7 @@ function invalidPassword($password)
 function pwdMatch($password, $retypepassword)
 {
     $answer = false;
-    if($retypepassword !== $password)
+    if($retypepassword != $password)
     {
         echo "Passwords do not match!";
         $answer = true;
@@ -69,6 +69,10 @@ function registerUser($conn, $name, $username, $password)
     $sql = "INSERT INTO users (userId, userName, userUsername, userPassword) VALUES ();";
     $stmt = mysqli_stmt_init($conn);
 
-    
+    $answer = false
+    $stmt();
+    $name
+    $username
+    $password
 }
 */
