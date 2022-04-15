@@ -18,7 +18,7 @@
         .title{
             text-align: center;
         }
-        .column-container{
+        .flex-container{
             display: flex;
             justify-content: space-around;
         }
@@ -44,10 +44,16 @@
     <br/>
     <br/>
     <main class="container">
-        <div class="column-container">
-            <div>Content 1</div>
-            <div>Content 2</div>
-            <div>Content 3</div>
+    <div class=flex-container>
+            <div class="column">
+                <h5>Content 1</h5>
+            </div>
+            <div class="column">
+                <h5>Content 2</h5>
+            </div>
+            <div class="column">
+                <h5>Content 3</h5>
+            </div>
         </div>
     </main>
     <footer>
