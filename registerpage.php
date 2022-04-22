@@ -1,3 +1,80 @@
+<?php
+
+include "config/dbconnection.php";
+include "functions.php";
+
+$name="";
+$username="";
+$password="";
+$retypepassword="";
+
+//if(isset($_POST["submit"]))
+if($_SERVER['REQUEST_METHOD'] == "POST") 
+{
+    $name = ($_POST)["name"];
+    $username = ($_POST)["username"];
+    $password = ($_POST)["pwd"];
+    $retypepassword = ($_POST)["retypepwd"];
+
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
+    if(emptyInput($name, $username, $password, $retypepassword) !== false)
+    {
+        header("location: ../registerpage.php?error=emptyvalue");
+        exit();
+    }
+
+    if(invalidName($name) !== false)
+    {
+        header("location: ../registerpage.php?error=invalidname");
+        exit();
+    }
+
+    if(invalidUsername($username) !== false)
+    {
+        header("location: ../registerpage.php?error=invalidusername");
+        exit();
+    }
+
+    if(invalidPassword($password) !== false)
+    {
+        header("location: ../registerpage.php?error=invalidpassword");
+        exit();
+    }
+
+    if(pwdMatch($password, $retypepassword) !== false)
+    {
+        header("location: ../registerpage.php?error=invalidpasswordmatch");
+        exit();
+    }
+
+    //if($_SERVER['REQUEST_METHOD'] == "POST")
+    try
+    {
+        $query = "INSERT INTO users SET userName=?, userUsername=?, userPassword=?";
+
+        $stmt=$conn->prepare($query);
+        
+        $stmt->bindParam(1,$name);
+        $stmt->bindParam(2,$username);
+        $stmt->bindParam(3,$hashed_password);
+
+        if($stmt->execute())
+        {   
+            echo "You are signed up!";
+        }
+    }
+    catch(PDOException $e)
+    {
+        echo "Error :".$e->getMessage();
+    }
+    
+}
+else
+{
+    // header("location: ../registerpage.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +83,7 @@
     <meta name="keywords" content="movies, review">
     <meta name="Author" content="Riley Truax">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300&display=swap" rel="stylesheet">
     <style>
@@ -77,7 +154,7 @@
                 <p>Thank you and have a great day!!</p>
             </div>
             <div class="form">
-                <form action="scripts/registerscript.php" method="POST">
+                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
 
                     <input class="form-control" type="text" name="name" placeholder="Name">
                     <div style="padding-top: 3%;">
@@ -89,7 +166,7 @@
                     <div style="padding-top: 3%;">
                         <input class="form-control" type="password" name="retypepwd" placeholder="Retype password">
                     </div>
-                    <button class="loginButton" type="submit" name="login">REGISTER</button>
+                    <button class="loginButton" type="submit" name="register">REGISTER</button>
                 </form>
             </div>
             <div class="register">
