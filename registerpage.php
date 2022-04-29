@@ -1,3 +1,33 @@
+<?php
+include "config/dbconnection.php";
+include "scripts/functions.php";
+
+if(isset($_POST['register']))
+{
+//echo "Hi";
+$name=$_POST['name'];
+$username=$_POST['username'];
+$password=$_POST['pwd'];
+//$retypepassword=$_POST['retypepwd'];
+
+$option = ['cost' => 12];
+$hashed_password = password_hash($password, PASSWORD_BCRYPT, $option);
+
+$query = "INSERT INTO users (uName,uUsername,uPassword) VALUES (?,?,?)";
+$stmt= $conn->prepare($query);
+$stmt->bindParam(1,$name);
+$stmt->bindParam(2,$username);
+$stmt->bindParam(3,$hashed_password);
+if($stmt->execute())
+{
+    echo '<div class="alert alert-success">
+  <strong>Thank you for signing up!</strong>
+    </div>';
+}
+
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,7 +107,7 @@
                 <p>Thank you and have a great day!!</p>
             </div>
             <div class="form">
-                <form action="scripts/registerscript.php" method="POST">
+                <form  method="POST">
 
                     <input class="form-control" type="text" name="name" placeholder="Name">
                     <div style="padding-top: 3%;">
@@ -89,11 +119,11 @@
                     <div style="padding-top: 3%;">
                         <input class="form-control" type="password" name="retypepwd" placeholder="Retype password">
                     </div>
-                    <button class="loginButton" type="submit" name="login">REGISTER</button>
+                    <button class="loginButton" type="submit" name="register">REGISTER</button>
                 </form>
             </div>
             <div class="register">
-                <button onclick="location.href='loginpage.php';" class="registerButton" type="submit" name="register">Back To Login</button>
+                <button onclick="location.href='loginpage.php';" class="registerButton" type="submit" name="back-to-login">Back To Login</button>
             </div>
         </main>
         <footer>
