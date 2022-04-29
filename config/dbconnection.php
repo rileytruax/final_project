@@ -5,11 +5,14 @@ $dbName = "website";
 $dbUsername = "root";
 $dbPassword = "";
 
-$conn = mysqli_connect($host, $dbName, $dbUsername, $dbPassword);
-
-if(!$conn)
+try
 {
-    die("Connection error" . mysqli_connect_error());
+    $conn = new PDO("mysql:host={$host};dbName={$dbName}",$dbUsername,$dbPassword);
+}
+
+catch(PDOException $e)
+{
+    echo "Connection error :".$e->getMessage();
 }
 
 ?>

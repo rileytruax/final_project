@@ -1,5 +1,8 @@
 <?php
 
+include("config/dbconnection.php");
+include("functions.php");
+
 if(isset($_POST["submit"])) 
 {
     $name = ($_POST)["name"];
@@ -7,8 +10,8 @@ if(isset($_POST["submit"]))
     $password = ($_POST)["pwd"];
     $retypepassword = ($_POST)["retypepwd"];
 
-    require_once "config/dbconnection.php";
-    require_once "functions.php";
+    //require_once "config/dbconnection.php";
+    //require_once "functions.php";
 
     if(emptyInput($name, $username, $password, $retypepassword) !== false)
     {
