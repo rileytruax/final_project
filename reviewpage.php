@@ -18,9 +18,24 @@
         .title{
             text-align: center;
         }
+        .column{
+            height: 300px;
+            width: 32%;
+            border-style: solid;
+            background-color: lightcoral;
+        }
         .flex-container{
             display: flex;
-            justify-content: space-around;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        h5{
+            text-align: center;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: bold;
+        }
+        p{
+            
         }
     </style>
 </head>

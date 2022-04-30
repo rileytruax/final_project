@@ -1,3 +1,29 @@
+<?php
+include "config/dbconnection.php";
+
+if(isset($_POST['login']))
+{
+$username = $_POST['username'];
+$password = $_POST['pwd'];
+
+$query = "SELECT uUsername,uPassword FROM users WHERE (uUsername=:uname)";
+$stmt = $conn -> prepare($query);
+$stmt-> bindParam(':uname',$username,PDO::PARAM_STR);
+$stmt-> execute();
+$results=$stmt->fetchAll(PDO::FETCH_OBJ);
+if($stmt-> rowCount() > 0)
+{
+    foreach ($results as $row){
+        $hashed_password=$row->LoginPassword;
+    }
+    if(password_verify($password,$hashed_password)){
+        $_SESSION['userlogin']=$_POST['username'];
+        echo "<script type='text/javascript'> document.location = 'homepage.php'; </script>";
+    }
+}
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,7 +103,7 @@
                 <p>Thank you and have a great day!!</p>
             </div>
             <div class="form">
-                <form action="scripts/loginscript.php" method="POST">
+                <form method="POST">
                     <input class="form-control" type="username" name="username" placeholder="Username" required>
                     <div style="padding-top: 3%;">
                         <input class="form-control" type="password" name="pwd" placeholder="Password" required>

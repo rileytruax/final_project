@@ -1,78 +1,30 @@
 <?php
-
 include "config/dbconnection.php";
-include "functions.php";
+include "scripts/functions.php";
 
-$name="";
-$username="";
-$password="";
-$retypepassword="";
-
-//if(isset($_POST["submit"]))
-if($_SERVER['REQUEST_METHOD'] == "POST") 
+if(isset($_POST['register']))
 {
-    $name = ($_POST)["name"];
-    $username = ($_POST)["username"];
-    $password = ($_POST)["pwd"];
-    $retypepassword = ($_POST)["retypepwd"];
+//echo "Hi";
+$name=$_POST['name'];
+$username=$_POST['username'];
+$password=$_POST['pwd'];
+//$retypepassword=$_POST['retypepwd'];
 
-    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+$option = ['cost' => 12];
+$hashed_password = password_hash($password, PASSWORD_BCRYPT, $option);
 
-    if(emptyInput($name, $username, $password, $retypepassword) !== false)
-    {
-        header("location: ../registerpage.php?error=emptyvalue");
-        exit();
-    }
-
-    if(invalidName($name) !== false)
-    {
-        header("location: ../registerpage.php?error=invalidname");
-        exit();
-    }
-
-    if(invalidUsername($username) !== false)
-    {
-        header("location: ../registerpage.php?error=invalidusername");
-        exit();
-    }
-
-    if(invalidPassword($password) !== false)
-    {
-        header("location: ../registerpage.php?error=invalidpassword");
-        exit();
-    }
-
-    if(pwdMatch($password, $retypepassword) !== false)
-    {
-        header("location: ../registerpage.php?error=invalidpasswordmatch");
-        exit();
-    }
-
-    //if($_SERVER['REQUEST_METHOD'] == "POST")
-    try
-    {
-        $query = "INSERT INTO users SET userName=?, userUsername=?, userPassword=?";
-
-        $stmt=$conn->prepare($query);
-        
-        $stmt->bindParam(1,$name);
-        $stmt->bindParam(2,$username);
-        $stmt->bindParam(3,$hashed_password);
-
-        if($stmt->execute())
-        {   
-            echo "You are signed up!";
-        }
-    }
-    catch(PDOException $e)
-    {
-        echo "Error :".$e->getMessage();
-    }
-    
+$query = "INSERT INTO users (uName,uUsername,uPassword) VALUES (?,?,?)";
+$stmt= $conn->prepare($query);
+$stmt->bindParam(1,$name);
+$stmt->bindParam(2,$username);
+$stmt->bindParam(3,$hashed_password);
+if($stmt->execute())
+{
+    echo '<div class="alert alert-success">
+  <strong>Thank you for signing up!</strong>
+    </div>';
 }
-else
-{
-    // header("location: ../registerpage.php");
+
 }
 ?>
 <!DOCTYPE html>
@@ -154,6 +106,7 @@ else
                 <p>Thank you and have a great day!!</p>
             </div>
             <div class="form">
+
                 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
 
                     <input class="form-control" type="text" name="name" placeholder="Name">
@@ -170,7 +123,7 @@ else
                 </form>
             </div>
             <div class="register">
-                <button onclick="location.href='loginpage.php';" class="registerButton" type="submit" name="register">Back To Login</button>
+                <button onclick="location.href='loginpage.php';" class="registerButton" type="submit" name="back-to-login">Back To Login</button>
             </div>
         </main>
         <footer>

@@ -1,18 +1,20 @@
 <?php
     
-$host = "localhost";
-$dbName = "website";
+define('DB_HOST','localhost');
+define('DB_NAME','website');
+define('DB_USER','root');
+define('DB_PASS','');
+
 $dbUsername = "root";
 $dbPassword = "";
-
 try
 {
-    $conn = new PDO("mysql:host={$host};dbName={$dbName}",$dbUsername,$dbPassword);
+    $conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
 }
 
 catch(PDOException $e)
 {
-    echo "Connection error :".$e->getMessage();
+  echo'ERROR:'.$e->getMessage();  
 }
 
 ?>
