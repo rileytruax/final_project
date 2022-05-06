@@ -1,3 +1,10 @@
+<?php
+session_start();
+include('config/dbconnection.php');
+//if (strlen($_SESSION['login']) == 0) {
+  //  header('location:loginpage.php');
+//} else {
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,9 +53,10 @@
             <div class="icon">
                 <button type="submit" class="btn"><img src="img/popcorn-icon.png" width="77.5" height="114.2857" title="popcorn icons"></button>
                 <div class="content">
+                    <a href="homepage.php">HOME</a>
                     <a href="listpage.php">LIST</a>
                     <a href="reviewpage.php">REVIEWS</a>
-                    <a href="loginpage.php">LOGOUT</a>
+                    <a href="logout.php">LOGOUT</a>
                 </div>
             </div>
         </div>
@@ -76,3 +84,4 @@
     </footer>
 </body>
 </html>
+<?php// } ?>
