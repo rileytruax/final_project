@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "config/dbconnection.php";
 
 if(isset($_POST['login']))
@@ -14,10 +15,10 @@ $results=$stmt->fetchAll(PDO::FETCH_OBJ);
 if($stmt-> rowCount() > 0)
 {
     foreach ($results as $row){
-        $hashed_password=$row->LoginPassword;
+        $hashedpassword=$row->uPassword;
     }
-    if(password_verify($password,$hashed_password)){
-        $_SESSION['userlogin']=$_POST['username'];
+    if(password_verify($password,$hashedpassword)){
+        $_SESSION['login']=$_POST['username'];
         echo "<script type='text/javascript'> document.location = 'homepage.php'; </script>";
     }
 }
