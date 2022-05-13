@@ -1,6 +1,6 @@
 <?php
 include "config/dbconnection.php";
-include "scripts/functions.php";
+//include "scripts/functions.php";
 
 if(isset($_POST['register']))
 {
@@ -8,23 +8,29 @@ if(isset($_POST['register']))
 $name=$_POST['name'];
 $username=$_POST['username'];
 $password=$_POST['pwd'];
-//$retypepassword=$_POST['retypepwd'];
+$retypepassword=$_POST['retypepwd'];
 
 $option = ['cost' => 12];
 $hashed_password = password_hash($password, PASSWORD_BCRYPT, $option);
 
-$query = "INSERT INTO users (uName,uUsername,uPassword) VALUES (?,?,?)";
-$stmt= $conn->prepare($query);
-$stmt->bindParam(1,$name);
-$stmt->bindParam(2,$username);
-$stmt->bindParam(3,$hashed_password);
-if($stmt->execute())
+if($password == $retypepassword)
 {
-    echo '<div class="alert alert-success">
-  <strong>Thank you for signing up!</strong>
-    </div>';
+    $query = "INSERT INTO users (uName,uUsername,uPassword) VALUES (?,?,?)";
+    $stmt= $conn->prepare($query);
+    $stmt->bindParam(1,$name);
+    $stmt->bindParam(2,$username);
+    $stmt->bindParam(3,$hashed_password);
+    if($stmt->execute())
+    {
+        echo '<div class="alert alert-success">
+    <strong>Thank you for signing up!</strong>
+        </div>';
+    }
+} else {
+    echo '<div class="alert alert-warning">
+    <strong>Passwords do not match!</strong>
+        </div>';
 }
-
 }
 ?>
 
@@ -61,7 +67,7 @@ if($stmt->execute())
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 750px;
+            height: 500px;
         }
         .input {
             width: 250px;
@@ -82,7 +88,7 @@ if($stmt->execute())
             width: 250px;
             font-weight: lighter;
         }
-        .register{
+        .login{
             display: flex;
             justify-content: center;
             align-items: center;
@@ -90,7 +96,7 @@ if($stmt->execute())
     </style>
 </head>
 <body>
-    <div class="contatiner">
+    <div class="container">
         <header>
             <nav>
                 <a href="homepage.php">Homepage</a>
@@ -122,7 +128,7 @@ if($stmt->execute())
                     <button class="loginButton" type="submit" name="register">REGISTER</button>
                 </form>
             </div>
-            <div class="register">
+            <div class="login">
                 <button onclick="location.href='loginpage.php';" class="registerButton" type="submit" name="back-to-login">Back To Login</button>
             </div>
         </main>

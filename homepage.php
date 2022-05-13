@@ -1,9 +1,9 @@
 <?php
 session_start();
 include('config/dbconnection.php');
-//if (strlen($_SESSION['login']) == 0) {
-  //  header('location:loginpage.php');
-//} else {
+if (strlen($_SESSION['userlogin']) == 0) {
+    header('location:loginpage.php');
+} else {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +13,7 @@ include('config/dbconnection.php');
     <meta name="keywords" content="movies, review">
     <meta name="Author" content="Riley Truax">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300&display=swap" rel="stylesheet">
     <title>Home</title>
@@ -44,6 +44,9 @@ include('config/dbconnection.php');
         p{
             
         }
+        table{
+            width: 100%;
+        }
     </style>
 </head>
 <!-- img is 434 x 640 -->
@@ -69,13 +72,40 @@ include('config/dbconnection.php');
     <main class="container">
         <div class=flex-container>
             <div class="column">
-                <h5>Content 1</h5>
+                <table>
+                    <tr>
+                        <th>Movie Title</th>
+                        <th>Year Released</th>
+                    </tr>
+                    <tr>
+                        <td>The Dark Knight</td>
+                        <td>2008</td>
+                    </tr>
+                </table>
             </div>
             <div class="column">
-                <h5>Content 2</h5>
+                <table>
+                    <tr>
+                        <th>Movie Title</th>
+                        <th>Year Released</th>
+                    </tr>
+                    <tr>
+                        <td>Interstellar</td>
+                        <td>2014</td>
+                    </tr>
+                </table>
             </div>
             <div class="column">
-                <h5>Content 3</h5>
+                <table>
+                    <tr>
+                        <th>Movie Title</th>
+                        <th>Year Released</th>
+                    </tr>
+                    <tr>
+                        <td>Land Of The Lost</td>
+                        <td>2009</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </main>
@@ -84,4 +114,4 @@ include('config/dbconnection.php');
     </footer>
 </body>
 </html>
-<?php// } ?>
+<?php } ?>
