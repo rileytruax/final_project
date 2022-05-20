@@ -59,6 +59,7 @@ if (strlen($_SESSION['userlogin']) == 0) {
                     <a href="homepage.php">HOME</a>
                     <a href="listpage.php">LIST</a>
                     <a href="reviewpage.php">REVIEWS</a>
+                    <a href="aboutauthor.php">ABOUT</a>
                     <a href="logout.php">LOGOUT</a>
                 </div>
             </div>
@@ -74,36 +75,81 @@ if (strlen($_SESSION['userlogin']) == 0) {
             <div class="column">
                 <table>
                     <tr>
-                        <th>Movie Title</th>
-                        <th>Year Released</th>
+                        <th>Top Box-Office Movies Of All Time - Worldwide</th>
+                    </tr>
+                    <tr>
+                        <td>Avatar</td>
+                        <td>2009</td>
+                    </tr>
+                    <tr>
+                        <td>Avengers: Endgame</td>
+                        <td>2019</td>
+                    </tr>
+                    <tr>
+                        <td>Titanic</td>
+                        <td>1997</td>
+                    </tr>
+                    <tr>
+                        <td>Star Wars: Episode VII - The Force Awakens</td>
+                        <td>2015</td>
+                    </tr>
+                    <tr>
+                        <td>Avengers: Infinity War</td>
+                        <td>2018</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="column">
+                <table>
+                    <tr>
+                        <th>Top IMDb Movies by Rating</th>
+                    </tr>
+                    <tr>
+                        <td>The Shawshank Redemption</td>
+                        <td>1994</td>
+                    </tr>
+                    <tr>
+                        <td>The Godfather</td>
+                        <td>1972</td>
                     </tr>
                     <tr>
                         <td>The Dark Knight</td>
                         <td>2008</td>
                     </tr>
+                    <tr>
+                        <td>The Godfather: Part II</td>
+                        <td>1974</td>
+                    </tr>
+                    <tr>
+                        <td>12 Angry Men</td>
+                        <td>1957</td>
+                    </tr>
                 </table>
             </div>
             <div class="column">
                 <table>
                     <tr>
-                        <th>Movie Title</th>
-                        <th>Year Released</th>
+                        <th>My Top Picks</th>
+                    </tr>
+                    <tr>
+                        <td>Ferris Bueller's Day Off</td>
+                        <td>1986</td>
+                    </tr>
+                    <tr>
+                        <td>The Princess Bride</td>
+                        <td>1987</td>
+                    </tr>
+                    <tr>
+                        <td>Spider-Man 2</td>
+                        <td>2004</td>
+                    </tr>
+                    <tr>
+                        <td>The Dark Knight</td>
+                        <td>2008</td>
                     </tr>
                     <tr>
                         <td>Interstellar</td>
                         <td>2014</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="column">
-                <table>
-                    <tr>
-                        <th>Movie Title</th>
-                        <th>Year Released</th>
-                    </tr>
-                    <tr>
-                        <td>Land Of The Lost</td>
-                        <td>2009</td>
                     </tr>
                 </table>
             </div>

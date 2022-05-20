@@ -89,10 +89,6 @@ if($stmt-> rowCount() > 0)
 <body>
     <div class="container">
         <header>
-            <nav>
-                <a href="homepage.php">Homepage</a>
-            </nav>
-            <br>
             <div class="header">
                 <h2>Welcome To The Movie Reviewer!</h2>
             </div>

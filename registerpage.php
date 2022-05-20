@@ -98,10 +98,6 @@ if($password == $retypepassword)
 <body>
     <div class="container">
         <header>
-            <nav>
-                <a href="homepage.php">Homepage</a>
-            </nav>
-            <br>
             <div class="header">
                 <h2>Welcome To The Movie Reviewer!</h2>
             </div>
@@ -115,15 +111,15 @@ if($password == $retypepassword)
             <div class="form">
                 <form  method="POST">
 
-                    <input class="form-control" type="text" name="name" placeholder="Name">
+                    <input class="form-control" type="text" name="name" placeholder="Name" required>
                     <div style="padding-top: 3%;">
-                        <input class="form-control" type="text" name="username" placeholder="Username">
+                        <input class="form-control" type="text" name="username" placeholder="Username" required>
                     </div>
                     <div style="padding-top: 3%;">
-                        <input class="form-control" type="password" name="pwd" placeholder="Password">
+                        <input class="form-control" type="password" name="pwd" placeholder="Password" required>
                     </div>
                     <div style="padding-top: 3%;">
-                        <input class="form-control" type="password" name="retypepwd" placeholder="Retype password">
+                        <input class="form-control" type="password" name="retypepwd" placeholder="Retype password" required>
                     </div>
                     <button class="loginButton" type="submit" name="register">REGISTER</button>
                 </form>

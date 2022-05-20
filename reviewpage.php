@@ -1,3 +1,26 @@
+<?php
+include "config/dbconnection.php";
+
+try{
+    $query="SELECT movieName,movieReview FROM movies";
+
+    $stmt=$conn->prepare($query);
+
+    $stmt->execute();
+
+    $row=$stmt->fetch(PDO::FETCH_ASSOC);
+
+    $movieName=$row['movieName'];
+    $movieReview=$row['movieReview'];
+}
+catch(PDOException $e){
+    echo'ERROR:'.$e->getMessage();
+}
+session_start();
+if (strlen($_SESSION['userlogin']) == 0) {
+    header('location:loginpage.php');
+} else {
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,6 +60,14 @@
         p{
             
         }
+        .newreview{
+            background-color: #52b8f2;
+            width: 120px;
+            border-radius: 3px;
+            font-weight: lighter;
+            border: none;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <!-- img is 434 x 640 -->
@@ -49,6 +80,7 @@
                     <a href="homepage.php">HOME</a>
                     <a href="listpage.php">LIST</a>
                     <a href="reviewpage.php">REVIEWS</a>
+                    <a href="aboutauthor.php">ABOUT</a>
                     <a href="logout.php">LOGOUT</a>
                 </div>
             </div>
@@ -60,20 +92,21 @@
     <br/>
     <br/>
     <main class="container">
-    <div class=flex-container>
-            <div class="column">
-                <h5>Content 1</h5>
-            </div>
-            <div class="column">
-                <h5>Content 2</h5>
-            </div>
-            <div class="column">
-                <h5>Content 3</h5>
-            </div>
-        </div>
+        <button onclick="location.href='newreview.php';" class="newreview" type="submit" name="createreview">CREATE REVIEW</button>
+        <table class="table table-hover table-responsive table-bordered">
+            <tr>
+                <th>Movie Title</th>
+                <td><?php echo $movieName; ?></td>
+            </tr>
+            <tr>
+                <th>User Review</th>
+                <td><?php echo $movieReview; ?></td>
+            </tr>
+        </table>
     </main>
     <footer>
 
     </footer>
 </body>
 </html>
+<?php } ?>
