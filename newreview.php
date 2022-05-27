@@ -1,21 +1,30 @@
 <?php
 include "config/dbconnection.php";
 
-try{
-    $query="SELECT listName,genre,listOfMovies FROM lists";
+if(isset($_POST['createreview'])){  
 
-    $stmt=$conn->prepare($query);
+    try{
 
-    $stmt->execute();
+        $query = "INSERT INTO movies SET movieName=:movieName, movieReview=:movieReview";
 
-    $row=$stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt = $conn->prepare($query);
 
-    $listName=$row['listName'];
-    $genre=$row['genre'];
-    $listOfMovies=$row['listOfMovies'];
-}
-catch(PDOException $e){
-    echo'ERROR:'.$e->getMessage();
+        $movieName = $_POST['movieName'];
+        $movieReview = $_POST['movieReview'];
+
+        $stmt->bindParam(':movieName', $movieName);
+        $stmt->bindParam(':movieReview', $movieReview);
+
+        if($stmt->execute()){
+            echo "<div class='alert alert-success'>Review was saved!</div>";
+        }
+        else{
+            echo "<div class='alert alert-warning'>Unable to save review. Please try again.</div>";
+        }
+    }
+    catch(PDOException $e){
+        echo'ERROR:'.$e->getMessage();
+    }
 }
 session_start();
 if (strlen($_SESSION['userlogin']) == 0) {
@@ -33,7 +42,7 @@ if (strlen($_SESSION['userlogin']) == 0) {
     <link rel="stylesheet" type="text/css" href="style/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300&display=swap" rel="stylesheet">
-    <title>List</title>
+    <title>Reviews</title>
     <style>
         h1{
             font-family: 'Fredoka', sans-serif;
@@ -48,10 +57,11 @@ if (strlen($_SESSION['userlogin']) == 0) {
             border-style: solid;
             background-color: lightcoral;
         }
-        .flex-container{
+        .form {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            justify-content: center;
+            align-items: center;
+            height: 500px;
         }
         h5{
             text-align: center;
@@ -61,13 +71,20 @@ if (strlen($_SESSION['userlogin']) == 0) {
         p{
             
         }
-        .newlist{
+        .newreview{
             background-color: #52b8f2;
             width: 120px;
             border-radius: 3px;
             font-weight: lighter;
             border: none;
             margin-bottom: 10px;
+        }
+        .backButton{
+            background-color: #F87357;
+            border: none;
+            border-radius: 3px;
+            width: 250px;
+            font-weight: lighter;
         }
     </style>
 </head>
@@ -87,27 +104,23 @@ if (strlen($_SESSION['userlogin']) == 0) {
             </div>
         </div>
         <div class="title">
-            <h1>Your Lists</h1>
+            <h1>Write your review here!</h1>
         </div>
     </header>
     <br/>
     <br/>
     <main class="container">
-        <button onclick="location.href='newlistpage.php';" class="newlist" type="submit" name="newlist">CREATE LIST</button>
-        <table class="table table-hover table-responsive table-bordered">
-            <tr>
-                <th>List Name</th>
-                <td><?php echo $listName; ?></td>
-            </tr>
-            <tr>
-                <th>Genre</th>
-                <td><?php echo $genre; ?></td>
-            </tr>
-            <tr>
-                <th>Movies</th>
-                <td><?php echo $listOfMovies; ?></td>
-            </tr>
-        </table>
+        <div class="form">
+            <form method="POST">
+                <input class="form-control" name="movieName" placeholder="Movie Name" required>
+                <div style="padding-top: 3%;">
+                    <textarea rows="5" cols="40" name="movieReview"></textarea>
+                </div>
+                <br>
+                <button class="newreview" type="submit" name="createreview">Create</button>
+                <button onclick="location.href='reviewpage.php';" class="backButton" type="submit" name="back-to-reviews">Back To Reviews</button>
+            </form>
+        </div>
     </main>
     <footer>
 

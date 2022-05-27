@@ -1,80 +1,39 @@
 <?php
-
 include "config/dbconnection.php";
-include "functions.php";
+//include "scripts/functions.php";
 
-$name="";
-$username="";
-$password="";
-$retypepassword="";
-
-//if(isset($_POST["submit"]))
-if($_SERVER['REQUEST_METHOD'] == "POST") 
+if(isset($_POST['register']))
 {
-    $name = ($_POST)["name"];
-    $username = ($_POST)["username"];
-    $password = ($_POST)["pwd"];
-    $retypepassword = ($_POST)["retypepwd"];
+//echo "Hi";
+$name=$_POST['name'];
+$username=$_POST['username'];
+$password=$_POST['pwd'];
+$retypepassword=$_POST['retypepwd'];
 
-    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+$option = ['cost' => 12];
+$hashed_password = password_hash($password, PASSWORD_BCRYPT, $option);
 
-    if(emptyInput($name, $username, $password, $retypepassword) !== false)
+if($password == $retypepassword)
+{
+    $query = "INSERT INTO users (uName,uUsername,uPassword) VALUES (?,?,?)";
+    $stmt= $conn->prepare($query);
+    $stmt->bindParam(1,$name);
+    $stmt->bindParam(2,$username);
+    $stmt->bindParam(3,$hashed_password);
+    if($stmt->execute())
     {
-        header("location: ../registerpage.php?error=emptyvalue");
-        exit();
+        echo '<div class="alert alert-success">
+    <strong>Thank you for signing up!</strong>
+        </div>';
     }
-
-    if(invalidName($name) !== false)
-    {
-        header("location: ../registerpage.php?error=invalidname");
-        exit();
-    }
-
-    if(invalidUsername($username) !== false)
-    {
-        header("location: ../registerpage.php?error=invalidusername");
-        exit();
-    }
-
-    if(invalidPassword($password) !== false)
-    {
-        header("location: ../registerpage.php?error=invalidpassword");
-        exit();
-    }
-
-    if(pwdMatch($password, $retypepassword) !== false)
-    {
-        header("location: ../registerpage.php?error=invalidpasswordmatch");
-        exit();
-    }
-
-    //if($_SERVER['REQUEST_METHOD'] == "POST")
-    try
-    {
-        $query = "INSERT INTO users SET userName=?, userUsername=?, userPassword=?";
-
-        $stmt=$conn->prepare($query);
-        
-        $stmt->bindParam(1,$name);
-        $stmt->bindParam(2,$username);
-        $stmt->bindParam(3,$hashed_password);
-
-        if($stmt->execute())
-        {   
-            echo "You are signed up!";
-        }
-    }
-    catch(PDOException $e)
-    {
-        echo "Error :".$e->getMessage();
-    }
-    
+} else {
+    echo '<div class="alert alert-warning">
+    <strong>Passwords do not match!</strong>
+        </div>';
 }
-else
-{
-    // header("location: ../registerpage.php");
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,7 +42,7 @@ else
     <meta name="keywords" content="movies, review">
     <meta name="Author" content="Riley Truax">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300&display=swap" rel="stylesheet">
     <style>
@@ -108,7 +67,7 @@ else
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 750px;
+            height: 500px;
         }
         .input {
             width: 250px;
@@ -129,7 +88,7 @@ else
             width: 250px;
             font-weight: lighter;
         }
-        .register{
+        .login{
             display: flex;
             justify-content: center;
             align-items: center;
@@ -137,12 +96,8 @@ else
     </style>
 </head>
 <body>
-    <div class="contatiner">
+    <div class="container">
         <header>
-            <nav>
-                <a href="homepage.php">Homepage</a>
-            </nav>
-            <br>
             <div class="header">
                 <h2>Welcome To The Movie Reviewer!</h2>
             </div>
@@ -154,23 +109,23 @@ else
                 <p>Thank you and have a great day!!</p>
             </div>
             <div class="form">
-                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+                <form  method="POST">
 
-                    <input class="form-control" type="text" name="name" placeholder="Name">
+                    <input class="form-control" type="text" name="name" placeholder="Name" required>
                     <div style="padding-top: 3%;">
-                        <input class="form-control" type="text" name="username" placeholder="Username">
+                        <input class="form-control" type="text" name="username" placeholder="Username" required>
                     </div>
                     <div style="padding-top: 3%;">
-                        <input class="form-control" type="password" name="pwd" placeholder="Password">
+                        <input class="form-control" type="password" name="pwd" placeholder="Password" required>
                     </div>
                     <div style="padding-top: 3%;">
-                        <input class="form-control" type="password" name="retypepwd" placeholder="Retype password">
+                        <input class="form-control" type="password" name="retypepwd" placeholder="Retype password" required>
                     </div>
                     <button class="loginButton" type="submit" name="register">REGISTER</button>
                 </form>
             </div>
-            <div class="register">
-                <button onclick="location.href='loginpage.php';" class="registerButton" type="submit" name="register">Back To Login</button>
+            <div class="login">
+                <button onclick="location.href='loginpage.php';" class="registerButton" type="submit" name="back-to-login">Back To Login</button>
             </div>
         </main>
         <footer>

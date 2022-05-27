@@ -1,21 +1,32 @@
 <?php
 include "config/dbconnection.php";
 
-try{
-    $query="SELECT listName,genre,listOfMovies FROM lists";
+if(isset($_POST['addlist'])){
 
-    $stmt=$conn->prepare($query);
+    try{
 
-    $stmt->execute();
+        $query = "INSERT INTO lists SET listName=:listName, genre=:genre, listOfMovies=:listOfMovies";
 
-    $row=$stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt = $conn->prepare($query);
 
-    $listName=$row['listName'];
-    $genre=$row['genre'];
-    $listOfMovies=$row['listOfMovies'];
-}
-catch(PDOException $e){
-    echo'ERROR:'.$e->getMessage();
+        $listName = $_POST['listName'];
+        $genre = $_POST['genre'];
+        $listOfMovies = $_POST['listOfMovies'];
+
+        $stmt->bindParam(':listName', $listName);
+        $stmt->bindParam(':genre', $genre);
+        $stmt->bindParam(':listOfMovies', $listOfMovies);
+
+        if($stmt->execute()){
+            echo "<div class='alert alert-success'>List Created!</div>";
+        }
+        else{
+            echo "<div class='alert alert-warning'>Unable to create list. Please try again.</div>";
+        }
+    }
+    catch(PDOException $e){
+        echo'ERROR:'.$e->getMessage();
+    }
 }
 session_start();
 if (strlen($_SESSION['userlogin']) == 0) {
@@ -33,7 +44,7 @@ if (strlen($_SESSION['userlogin']) == 0) {
     <link rel="stylesheet" type="text/css" href="style/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300&display=swap" rel="stylesheet">
-    <title>List</title>
+    <title>Create List</title>
     <style>
         h1{
             font-family: 'Fredoka', sans-serif;
@@ -48,10 +59,11 @@ if (strlen($_SESSION['userlogin']) == 0) {
             border-style: solid;
             background-color: lightcoral;
         }
-        .flex-container{
+        .form {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            justify-content: center;
+            align-items: center;
+            height: 500px;
         }
         h5{
             text-align: center;
@@ -61,13 +73,20 @@ if (strlen($_SESSION['userlogin']) == 0) {
         p{
             
         }
-        .newlist{
+        .addlist{
             background-color: #52b8f2;
             width: 120px;
             border-radius: 3px;
             font-weight: lighter;
             border: none;
             margin-bottom: 10px;
+        }
+        .backButton{
+            background-color: #F87357;
+            border: none;
+            border-radius: 3px;
+            width: 250px;
+            font-weight: lighter;
         }
     </style>
 </head>
@@ -93,21 +112,20 @@ if (strlen($_SESSION['userlogin']) == 0) {
     <br/>
     <br/>
     <main class="container">
-        <button onclick="location.href='newlistpage.php';" class="newlist" type="submit" name="newlist">CREATE LIST</button>
-        <table class="table table-hover table-responsive table-bordered">
-            <tr>
-                <th>List Name</th>
-                <td><?php echo $listName; ?></td>
-            </tr>
-            <tr>
-                <th>Genre</th>
-                <td><?php echo $genre; ?></td>
-            </tr>
-            <tr>
-                <th>Movies</th>
-                <td><?php echo $listOfMovies; ?></td>
-            </tr>
-        </table>
+        <div class="form">
+            <form method="POST">
+                <input class="form-control" name="listName" placeholder="List Name" required>
+                <div style="padding-top: 3%;">
+                    <input class="form-control" name="genre" placeholder="Genre" required>
+                </div>
+                <div style="padding-top: 3%;">
+                    <textarea rows="5" cols="40" name="listOfMovies"></textarea>
+                </div>
+                <br>
+                <button class="addlist" type="submit" name="addlist">ADD</button>
+                <button onclick="location.href='listpage.php';" class="backButton" type="submit" name="back-to-lists">Back To Lists</button>
+            </form>
+        </div>
     </main>
     <footer>
 
