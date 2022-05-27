@@ -18,7 +18,7 @@ if($stmt-> rowCount() > 0)
         $hashedpassword=$row->uPassword;
     }
     if(password_verify($password,$hashedpassword)){
-        $_SESSION['login']=$_POST['username'];
+        $_SESSION['userlogin']=$_POST['username'];
         echo "<script type='text/javascript'> document.location = 'homepage.php'; </script>";
     }
 }
@@ -58,7 +58,7 @@ if($stmt-> rowCount() > 0)
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 750px;
+            height: 500px;
         }
         .input {
             width: 250px;
@@ -89,10 +89,6 @@ if($stmt-> rowCount() > 0)
 <body>
     <div class="container">
         <header>
-            <nav>
-                <a href="homepage.php">Homepage</a>
-            </nav>
-            <br>
             <div class="header">
                 <h2>Welcome To The Movie Reviewer!</h2>
             </div>
