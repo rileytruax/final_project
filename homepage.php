@@ -41,9 +41,6 @@ if (strlen($_SESSION['userlogin']) == 0) {
             font-family: 'Fredoka', sans-serif;
             font-weight: bold;
         }
-        p{
-            
-        }
         table{
             width: 100%;
         }
