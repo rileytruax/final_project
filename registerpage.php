@@ -110,12 +110,8 @@ if($password == $retypepassword)
                 <p>Thank you and have a great day!!</p>
             </div>
             <div class="form">
-<<<<<<< HEAD
-                <form  method="POST">
-=======
 
                 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
->>>>>>> 40fce323629c89949c8420ab4cd041cdc6ce52af
 
                     <input class="form-control" type="text" name="name" placeholder="Name" required>
                     <div style="padding-top: 3%;">
