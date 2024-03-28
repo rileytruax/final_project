@@ -68,9 +68,6 @@ if (strlen($_SESSION['userlogin']) == 0) {
             font-family: 'Fredoka', sans-serif;
             font-weight: bold;
         }
-        p{
-            
-        }
         .newreview{
             background-color: #52b8f2;
             width: 120px;
